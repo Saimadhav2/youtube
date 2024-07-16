@@ -34,18 +34,20 @@
                 })
                 .then(response => {
                     console.log('Response status:', response.status);
-                    if (response.ok) {
-                        console.log('Logging triggered successfully');
-                    } else {
-                        console.error('Failed to trigger logging');
-                    }
-                    return response.text();
+                    console.log('Response headers:', JSON.stringify(Array.from(response.headers.entries())));
+                    return response.text().then(text => {
+                        console.log('Response body:', text);
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}, body: ${text}`);
+                        }
+                        return text;
+                    });
                 })
-                .then(text => {
-                    console.log('Response body:', text);
+                .then(() => {
+                    console.log('Logging triggered successfully');
                 })
                 .catch(error => {
-                    console.error('Error:', error);
+                    console.error('Error:', error.message);
                 })
                 .finally(() => {
                     console.log('Redirecting to:', calendlyUrl);
