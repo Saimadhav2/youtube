@@ -24,7 +24,7 @@
                 fetch('https://api.github.com/repos/Saimadhav2/youtube/dispatches', {
                     method: 'POST',
                     headers: {
-                        'Authorization': '${{ secrets.GH_TOKEN }}',
+                        'Authorization': 'token ${{ secrets.GH_TOKEN }}',
                         'Accept': 'application/vnd.github.v3+json'
                     },
                     body: JSON.stringify({
