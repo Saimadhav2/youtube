@@ -25,3 +25,5 @@ jobs:
           git add source-log.txt
           git commit -m "Log source parameter: ${{ github.event.inputs.source }}"
           git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
