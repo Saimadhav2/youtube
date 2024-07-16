@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting...</title>
+    <script>
+        window.onload = function() {
+            function getParameterByName(name, url) {
+                if (!url) url = window.location.href;
+                name = name.replace(/[\[\]]/g, '\\$&');
+                var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                    results = regex.exec(url);
+                if (!results) return null;
+                if (!results[2]) return '';
+                return decodeURIComponent(results[2].replace(/\+/g, ' '));
+            }
+            var source = getParameterByName('source');
+            var calendlyUrl = 'https://calendly.com/nitish-garg/30-minute-meeting-youtube?month=2024-07';
+            if (source) {
+                fetch('https://api.github.com/repos/Saimadhav2/redirecting/dispatches', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': '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',
+                        'Accept': 'application/vnd.github.v3+json'
+                    },
+                    body: JSON.stringify({
+                        event_type: 'log_source',
+                        client_payload: { source: source }
+                    })
+                })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('Logging triggered successfully');
+                    } else {
+                        console.error('Failed to trigger logging');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                })
+                .finally(() => {
+                    window.location.href = calendlyUrl;
+                });
+            } else {
+                window.location.href = calendlyUrl;
+            }
+        };
+    </script>
+</head>
+<body>
+    <p>Redirecting to Calendly, please wait...</p>
+</body>
+</html>
