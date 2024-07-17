@@ -1,0 +1,27 @@
+name: Log Source Parameter
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  log-source:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      
+      - name: Log Source Parameter
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "Source: ${{ github.event.inputs.source }}" >> source-log.txt
+          git config user.email "github-actions@github.com"
+          git config user.name "GitHub Actions"
+          git add source-log.txt
+          git commit -m "Log source parameter from GitHub Actions"
+          git push
