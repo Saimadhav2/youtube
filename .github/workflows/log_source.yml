@@ -1,12 +1,14 @@
 name: Log Source Parameter
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+  workflow_dispatch:
+    inputs:
+      source:
+        description: 'Source parameter'
+        required: true
+
+permissions:
+  contents: write
 
 jobs:
   log-source:
@@ -16,12 +18,10 @@ jobs:
         uses: actions/checkout@v2
       
       - name: Log Source Parameter
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo "Source: ${{ github.event.inputs.source }}" >> source-log.txt
           git config user.email "github-actions@github.com"
           git config user.name "GitHub Actions"
           git add source-log.txt
-          git commit -m "Log source parameter from GitHub Actions"
+          git commit -m "Log source parameter: ${{ github.event.inputs.source }}"
           git push
