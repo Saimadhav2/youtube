@@ -25,15 +25,17 @@
             console.log('Source:', source);
 
             if (source) {
-                fetch('https://api.github.com/repos/Saimadhav2/youtube/issues', {
+                fetch('https://api.github.com/repos/Saimadhav2/youtube/dispatches', {
                     method: 'POST',
                     headers: {
                         'Authorization': 'token '+token,
                         'Accept': 'application/vnd.github.v3+json'
                     },
                     body: JSON.stringify({
-                        title: 'Log Source Parameter',
-                        body: 'Source: ' + source
+                        event_type: 'log-source',
+                        client_payload: {
+                            source: source
+                        }
                     })
                 })
                     .then(response => {
