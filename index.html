@@ -46,15 +46,15 @@
                     })
                     .then(() => {
                         console.log('Logging triggered successfully');
-                        window.location.href = calendlyUrl;
+                        
                     })
                     .catch(error => {
                         console.error('Error:', error.message);
-                        window.location.href = calendlyUrl;
+                        
                     });
             } else {
                 console.log('No source parameter, redirecting immediately');
-                window.location.href = calendlyUrl;
+                
             }
         };
     </script>
