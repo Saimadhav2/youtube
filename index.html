@@ -32,8 +32,8 @@
                         'Accept': 'application/vnd.github.v3+json'
                     },
                     body: JSON.stringify({
-                        event_type: 'log_source',
-                        client_payload: { source: source }
+                        title: 'Log Source Parameter',
+                        body: 'Source: ' + source
                     })
                 })
                     .then(response => {
