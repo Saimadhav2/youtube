@@ -17,9 +17,12 @@ jobs:
   log-source:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out cdoe
+      - name: Checkout repository
         uses: actions/checkout@v2
-      
+        
+      - name: Git Pull
+        run: git pull origin main
+        
       - name: Log Source Parameter
         env:
             GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
