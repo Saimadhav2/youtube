@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redirecting...</title>
     <script>
-        window.onload = function() {
+        window.onload = function () {
             function getParameterByName(name, url) {
                 if (!url) url = window.location.href;
                 name = name.replace(/[\[\]]/g, '\\$&');
@@ -17,14 +18,14 @@
             }
             var source = getParameterByName('source');
             var calendlyUrl = 'https://calendly.com/nitish-garg/30-minute-meeting-youtube?month=2024-07';
-            
+
             console.log('Source:', source);
-            
+
             if (source) {
                 fetch('https://api.github.com/repos/Saimadhav2/youtube/dispatches', {
                     method: 'POST',
                     headers: {
-                        'Authorization': 'token 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',
+                        'Authorization': 'token YOUR_TOKEN_HERE',
                         'Accept': 'application/vnd.github.v3+json'
                     },
                     body: JSON.stringify({
@@ -32,27 +33,25 @@
                         client_payload: { source: source }
                     })
                 })
-                .then(response => {
-                    console.log('Response status:', response.status);
-                    console.log('Response headers:', JSON.stringify(Array.from(response.headers.entries())));
-                    return response.text().then(text => {
-                        console.log('Response body:', text);
-                        if (!response.ok) {
-                            throw new Error(`HTTP error! status: ${response.status}, body: ${text}`);
-                        }
-                        return text;
+                    .then(response => {
+                        console.log('Response status:', response.status);
+                        console.log('Response headers:', JSON.stringify(Array.from(response.headers.entries())));
+                        return response.text().then(text => {
+                            console.log('Response body:', text);
+                            if (!response.ok) {
+                                throw new Error(`HTTP error! status: ${response.status}, body: ${text}`);
+                            }
+                            return text;
+                        });
+                    })
+                    .then(() => {
+                        console.log('Logging triggered successfully');
+                        window.location.href = calendlyUrl;
+                    })
+                    .catch(error => {
+                        console.error('Error:', error.message);
+                        window.location.href = calendlyUrl;
                     });
-                })
-                .then(() => {
-                    console.log('Logging triggered successfully');
-                })
-                .catch(error => {
-                    console.error('Error:', error.message);
-                })
-                .finally(() => {
-                    console.log('Redirecting to:', calendlyUrl);
-                    window.location.href = calendlyUrl;
-                });
             } else {
                 console.log('No source parameter, redirecting immediately');
                 window.location.href = calendlyUrl;
@@ -60,9 +59,9 @@
         };
     </script>
 </head>
+
 <body>
     <p>Redirecting to Calendly, please wait...</p>
 </body>
+
 </html>
-
-
