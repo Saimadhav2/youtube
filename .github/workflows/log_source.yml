@@ -7,6 +7,8 @@ on:
   pull_request:
     branches:
       - main
+  repository_dispatch:
+    types: [log-source]
 
 permissions:
   contents: write
@@ -15,16 +17,16 @@ jobs:
   log-source:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Check out cdoe
         uses: actions/checkout@v2
       
       - name: Log Source Parameter
         env:
             GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
         run: |
-          echo "Source: ${{ github.event.head_commit.message }}" >> source-log.txt
+          echo "Source: ${{ github.event.client_payload.source }}" >> source-log.txt
           git config user.email "github-actions@github.com"
           git config user.name "GitHub Actions"
           git add source-log.txt
-          git commit -m "Log source parameter: ${{ github.event.inputs.source }}"
+          git commit -m "Log source parameter: ${{ github.event.client_payload.source }}"
           git push
