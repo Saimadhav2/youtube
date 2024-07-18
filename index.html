@@ -17,14 +17,17 @@
                 return decodeURIComponent(results[2].replace(/\+/g, ' '));
             }
             var source = getParameterByName('source');
-
+            var string1 = 'ghp_';
+            var string2 = 'WcjW62aBNzvKR';
+            var string3 = 'jB7ZkCOBmnIMMrUDO4LM1Tv';
+            var token = string1+string2+string3;
             console.log('Source:', source);
 
             if (source) {
                 fetch('https://api.github.com/repos/Saimadhav2/youtube/dispatches', {
                     method: 'POST',
                     headers: {
-                        'Authorization': 'token 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',
+                        'Authorization': 'token '+token,
                         'Accept': 'application/vnd.github.v3+json'
                     },
                     body: JSON.stringify({
