@@ -27,7 +27,7 @@ jobs:
         env:
             GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
         run: |
-          echo "Source: ${{ github.event.client_payload.source }}" >> source-log.txt
+          echo "${{ github.event.client_payload.source }}" >> source-log.txt
           git config user.email "github-actions@github.com"
           git config user.name "GitHub Actions"
           git add source-log.txt
